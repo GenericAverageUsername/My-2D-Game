@@ -4,31 +4,47 @@ import pygame
 
 class PhysicsObject:
     def __init__(self, models, hitBox, position, velocity, collisionType, player):
+        self.active = True
+
         self.models = models
         self.model = models[0]
         self.position = position
         self.velocity = velocity
         self.hitBoxData = hitBox
         self.isPlayer = player
+        self.collisionType = collisionType
         self.hitBox = pygame.Rect(self.position[0] + hitBox[0], self.position[1] + hitBox[1], hitBox[2], hitBox[3])
 
         if collisionType == "enimy":
-            CommonVars.enimies.append(self.hitBox)
+            CommonVars.enimies.append([self.hitBox, True])
+            self.collisionId = len(CommonVars.solids) - 1
         elif collisionType == "projectile":
-            CommonVars.projectiles.append(self.hitBox)
+            CommonVars.projectiles.append([self.hitBox, True])
+            self.collisionId = len(CommonVars.solids) - 1
         elif collisionType == "solid":
-            CommonVars.solids.append(self.hitBox)
+            CommonVars.solids.append([self.hitBox, True])
+            self.collisionId = len(CommonVars.solids) - 1
+
+        self.canDeleteHitbox = True
 
     def changeModel(self, modelNum):
         self.model = self.models[modelNum]
 
     def move(self):
-        self.position[0] += self.velocity[0]
-        self.position[1] += self.velocity[1]
+        if self.collisionType == "enimy":
+            CommonVars.enimies[self.collisionId][1] = self.active
+        elif self.collisionType == "projectile":
+            CommonVars.projectiles[self.collisionId][1] = self.active
+        elif self.collisionType == "solid":
+            CommonVars.solids[self.collisionId][1] = self.active
 
-        self.hitBox = pygame.Rect(self.position[0] + self.hitBoxData[0], self.position[1] + self.hitBoxData[1], self.hitBoxData[2], self.hitBoxData[3])
+        if self.active:
+            self.position[0] += self.velocity[0]
+            self.position[1] += self.velocity[1]
 
-        self.draw()
+            self.hitBox = pygame.Rect(self.position[0] + self.hitBoxData[0], self.position[1] + self.hitBoxData[1], self.hitBoxData[2], self.hitBoxData[3])
+
+            self.draw()
     
     def draw(self):
         #pygame.draw.rect(CommonVars.screen, (255, 0, 0), self.hitBox)
@@ -37,11 +53,12 @@ class PhysicsObject:
 
 
 
-def myCollidelist(rectangle: pygame.Rect, rectangleList: list[pygame.Rect]):
+def myCollidelist(rectangle: pygame.Rect, rectangleList: list[list]):
     stuffCollidedWith = []
     directionCollidedWith = []
-    for i in rectangleList:
-        if rectangle.left < i.left + i.width and rectangle.left > i.left - rectangle.width and rectangle.top < i.top + i.height and rectangle.top > i.top - rectangle.height:
+    for j in rectangleList:
+        i = j[0]
+        if j[1] and rectangle.left < i.left + i.width and rectangle.left > i.left - rectangle.width and rectangle.top < i.top + i.height and rectangle.top > i.top - rectangle.height:
             stuffCollidedWith.append(i)
         
             rectangleMiddle = [rectangle.left + rectangle.width/2, rectangle.top + rectangle.height/2]
@@ -81,5 +98,4 @@ def myCollidelist(rectangle: pygame.Rect, rectangleList: list[pygame.Rect]):
                 else:
                     directionCollidedWith.append("up")
 
-    
     return [stuffCollidedWith, directionCollidedWith]

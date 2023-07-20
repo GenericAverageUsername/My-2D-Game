@@ -4,9 +4,9 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 FPS = 30
 
-PLAYER_MODELS = [pygame.image.load("Images/PlayerDown.png"), pygame.image.load("Images/PlayerUp.png"), pygame.image.load("Images/PlayerLeft.png"), pygame.image.load("Images/PlayerRight.png")]
-MISSILE_MODEL = [pygame.image.load("Images/missle.png")]
-WALL_MODEL = [pygame.image.load("Images/Wall.png")]
+PLAYER_MODELS = [pygame.image.load("Data\\Images\\PlayerDown.png"), pygame.image.load("Data\\Images\\PlayerUp.png"), pygame.image.load("Data\\Images\\PlayerLeft.png"), pygame.image.load("Data\\Images\\PlayerRight.png")]
+MISSILE_MODEL = [pygame.image.load("Data\\Images\\missle.png")]
+WALL_MODEL = [pygame.image.load("Data\\Images\\Wall.png")]
 
 PLAYER_HIT_BOX = [3, 0, 33, 66]
 MISSILE_HIT_BOX = [7, 5, 7, 7]

@@ -1,5 +1,5 @@
 import math
-import CommonVars
+import Data.CommonVars as CommonVars
 import pygame
 
 class PhysicsObject:

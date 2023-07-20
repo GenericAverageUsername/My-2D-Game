@@ -1,9 +1,9 @@
 import pygame
 import time
 import math
-from PhysicsTemplate import PhysicsObject
-from PhysicsTemplate import myCollidelist
-import CommonVars
+from Data.PhysicsTemplate import PhysicsObject
+from Data.PhysicsTemplate import myCollidelist
+import Data.CommonVars as CommonVars
 
 class Player(PhysicsObject):
     def __init__(self, model, hitBox, position, velocity):

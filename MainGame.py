@@ -1,9 +1,9 @@
 import pygame
 import time
-import CommonVars
-from Player import Player
-from Terrain.Missile import Missile
-from Terrain.Wall import Wall
+import Data.CommonVars as CommonVars
+from Data.Player import Player
+from Data.Terrain.Missile import Missile
+from Data.Terrain.Wall import Wall
 
 pygame.init()
 

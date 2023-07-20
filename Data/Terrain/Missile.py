@@ -1,4 +1,4 @@
-from PhysicsTemplate import PhysicsObject
+from Data.PhysicsTemplate import PhysicsObject
 
 class Missile(PhysicsObject):
     def __init__(self, model, hitBox, position, velocity, damage):

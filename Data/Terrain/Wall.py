@@ -1,5 +1,5 @@
-from PhysicsTemplate import PhysicsObject
-import CommonVars
+from Data.PhysicsTemplate import PhysicsObject
+import Data.CommonVars as CommonVars
 
 class Wall(PhysicsObject):
     def __init__(self, model, hitBox, position, velocity):
